@@ -1,14 +1,17 @@
 # License
 *THIS SCRIPT IS PROVIDED TO YOU "AS IS." TO THE EXTENT PERMITTED BY LAW, QUALYS HEREBY DISCLAIMS ALL WARRANTIES AND LIABILITY FOR THE PROVISION OR USE OF THIS SCRIPT. IN NO EVENT SHALL THESE SCRIPTS BE DEEMED TO BE CLOUD SERVICES AS PROVIDED BY QUALYS*
 
-#Prerequisites for running the script:
+# Summary 
+This script is intended to pull a list of scanned images from the Qualys API. This will be a time range scoped data set based on the first specified epoch time. After the script completes, the max updated field is written to a config file so the next run of the script will start with the last specified max updated time stamp. The results of this script is the first level summary where there is vulnerability count columns for vulnerability severity counts for severities 1-5 as well as a column for each k:v pair returned in the json response to /csapi/v1.1/images endpoint.
+
+# Prerequisites for running the script:
 You must have Python3 installed.
 Install pip for python3.
 Run the following commands (Ubuntu):
 sudo apt-get update
 sudo apt-get install python3-pip
 
-#Steps:
+# Steps:
 Use requirements.txt to install the required modules/packages.
 
 ## Script Requirements
@@ -29,7 +32,7 @@ python3 -m pip install -r /path/to/requirements.txt
 You may wish to use a [python virtual environment](https://docs.python.org/3/library/venv.html) as to not pollute your host system.
 
 
-#Config Details:-
+# Config Details:-
 *Qualys API Username and Password*
 Script is looking for environment variables for:
 QUALYS_API_USERNAME={foo}
@@ -46,12 +49,12 @@ csv = 1/0 (o to write output to console / 1 to write output to CSV in ./reports)
 File is created after initial run of script. This file stores the last updated max value for the previous script execution and subsequent runs of the script will use the previous executions maxUpdated value to pull images updated greater than this stored value. This value is updated after each execution pending the returned data set is not null.
 To reset the script to begin from a new timestamp delete this file and set the value in ./config/config.conf to the new desired start timestamp.
 
-#Run the script like :-
+# Run the script like :-
 python3 FetchImages.py
 
 python3 FetchImages.py "./someOtherDirectory/config.conf"
 
-#Expected Output :-
+# Expected Output :-
 Config.conf csv = 0/1
 csv = 0
 Image summary outputs to console.
